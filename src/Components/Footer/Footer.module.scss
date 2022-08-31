@@ -1,0 +1,18 @@
+.footer{
+    display: flex;
+    background-color: 	whitesmoke;
+    height: 100px;
+    border-radius: 30px;
+    margin: 15px 10px 30px 10px;
+    box-shadow: 0px 8px 16px 9px rgba(140,140,140,0.73);
+    font-family: system-ui;
+    text-align: center;
+    align-items: center;
+
+    h4{
+    width: 50;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    }
+}
