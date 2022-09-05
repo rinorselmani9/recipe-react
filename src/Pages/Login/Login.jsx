@@ -1,21 +1,40 @@
-import React from 'react'
-import LoginForm  from '../../Components/LoginForm/Login'
+import React, { useState } from 'react'
+import LoginForm from '../../Components/Forms/LoginForm/Login'
 import api from '../../lib/api'
 import endpoint from '../../lib/endpoint'
+import SharedAlert from '../../Components/shared/Alert'
+import { Container } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { login } from '../../lib/store/slice'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [errorMessage, setErrorMessage] = useState()
 
-  const submitHandler = async(data) => {
+  const submitHandler = async (data) => {
     const config = {
-      data
+      data,
     }
-    const result = await api.call(endpoint.login,config)
-    console.log(result);
+    const result = await api.call(endpoint.login, config)
+
+    if (!result.success) {
+      setErrorMessage([result.data])
+      return
+    }
+    dispatch(login(result.data))
+    navigate('/')
   }
 
-
   return (
-    <LoginForm submit={submitHandler}/>
+    <>
+      <Container>
+        <h1>Login</h1>
+        <SharedAlert variant={'danger'}>{errorMessage}</SharedAlert>
+      </Container>
+      <LoginForm setMessage={setErrorMessage} submit={submitHandler} />
+    </>
   )
 }
 

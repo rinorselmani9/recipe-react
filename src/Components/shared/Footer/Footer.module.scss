@@ -1,0 +1,22 @@
+.footer {
+  // display: flex;
+  // background-color: white;
+  // height: 100px;
+  // font-family: system-ui;
+  // text-align: center;
+  // align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: white;
+  text-align: center;
+  border-top: 1px solid black;
+  h4 {
+    width: 50;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+  }
+}

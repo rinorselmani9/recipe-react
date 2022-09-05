@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100%;
+    width: auto;
+    .recipes{
+        width: 30%;
+    }
+    .users{
+        width: 30%;
+    }
+}
