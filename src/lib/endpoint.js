@@ -17,6 +17,6 @@ const endpoint = {
   deleteUserByAdmin:{url:'/users/delete/',method:'DELETE'},
   editRecipeImage:{url:'/recipe/edit-image/', method:'POST'},
   giveRecipeRating:{url:'/recipe/rate/',method:'POST'},
-  changeProfilePicture:{url:'/users/update-profile-image',method:'POST'}
+  changeProfilePicture:{url:'/users/update-profile-image/',method:'POST'}
 }
 export default endpoint

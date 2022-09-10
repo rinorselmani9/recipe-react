@@ -5,7 +5,6 @@ const ProfilePicture = ({imageData='', changeImage}) => {
 
     const handleImageChange = (e) => {
         e.preventDefault()
-        console.log(fileRef.current.files[0]);
         changeImage(fileRef.current.files[0])
     }
   return (

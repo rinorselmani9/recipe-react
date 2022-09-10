@@ -21,7 +21,7 @@ const UserRecipes = (props) => {
             <div key={recipe._id}>
               <Link to={`/recipe/single/${recipe._id}`}>
               <p>{recipe.title}</p>
-              <img src={recipe.image}></img>
+              <img src={process.env.REACT_APP_API_URL + recipe.image}></img>
               </Link>
             </div>
           )

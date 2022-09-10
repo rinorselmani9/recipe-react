@@ -3,24 +3,20 @@ import { Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import styles from './EditRecipeForm.module.scss'
 
-const EditRecipeForm = ({ submit, setMessage, recipe, changeImage }) => {
-  const [image] = useState(recipe.image)
+const EditRecipeForm = ({ submit, setMessage, recipe}) => {
+  
   const fileRef = useRef(null)
 
   const [title, setTitle] = useState(recipe.title)
   const [category, setCategory] = useState(recipe.category)
   const [ingridients, setIngridients] = useState(recipe.ingridients)
   const [instructions, setInstructions] = useState(recipe.instructions)
+  const [image,setImage] = useState(recipe.image)
 
   const addIngridientInput = (e) => {
     e.preventDefault()
     let ingridientInput = ''
     setIngridients([...ingridients, ingridientInput])
-  }
-
-  const handleChangeImage = (e) => {
-    e.preventDefault()
-    changeImage(fileRef.current.files[0])
   }
 
   const submitHandler = (e) => {
@@ -43,12 +39,13 @@ const EditRecipeForm = ({ submit, setMessage, recipe, changeImage }) => {
       category,
       ingridients,
       instructions,
+      image
     }
     submit(data)
   }
 
   return (
-    <Form onSubmit={submitHandler} className={styles.form} encType="multipart/form-data">
+    <Form onSubmit={submitHandler} className={styles.form}>
       <Form.Group>
         <input
           type='text'
@@ -90,10 +87,10 @@ const EditRecipeForm = ({ submit, setMessage, recipe, changeImage }) => {
           onChange={(e) => setInstructions(e.target.value)}
         ></textarea>
       </Form.Group>
-      <div>
+      <Form.Group>
         {/* <img src={image.startsWith('http') ? image : process.env.REACT_APP_API_URL + image} /> */}
-        <input ref={fileRef} type='file' onChange={handleChangeImage} name='recipe-image' />
-      </div>
+        <input ref={fileRef} type='file' onChange={(e) => {setImage(fileRef.current.files[0])}} name='recipe-image' />
+      </Form.Group>
       <button>Edit!</button>
     </Form>
   )

@@ -35,7 +35,7 @@ const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
             <h1>{elem.title}</h1>
             <div>
               <div className={styles.controll}>
-                <img src={elem.image}></img>
+                <img src={process.env.REACT_APP_API_URL + elem.image}></img>
                 {auth.id && auth.id === elem.creator ? (
                   <div key={elem._id}>
                     <button

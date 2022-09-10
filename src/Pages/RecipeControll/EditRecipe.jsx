@@ -11,18 +11,15 @@ import { useEffect } from 'react'
 const EditRecipe = () => {
   let recipeId = useParams().id
   const [recipe, setRecipe] = useState()
-
   const [errorMessage, setErrorMessage] = useState()
-
   const [variant, setVariant] = useState('danger')
-
   const token = useSelector((state) => state.auth.data.token)
-
   const navigate = useNavigate()
 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
+      'Content-type': 'multipart/form-data',
     },
     params: [recipeId],
   }
@@ -35,31 +32,21 @@ const EditRecipe = () => {
     getOneRecipe()
   }, [recipeId])
 
-  const editHandler = async (data) => {
+  const editHandler = async (recipe) => {
+    const formData = new FormData()
+    formData.append('title', recipe.title)
+    formData.append('category', recipe.category)
+    formData.append('ingridients', recipe.ingridients)
+    formData.append('instructions', recipe.instructions)
+    formData.append('recipe-image', recipe.image)
+
     const editConfig = { ...config }
-    editConfig.data = data
+    editConfig.data = formData
     const result = await api.call(endpoint.editRecipe, editConfig)
 
     if (!result.success) {
       setErrorMessage(result.data)
     }
-
-    
-  }
-  const changeImage = async (file) => {
-    const formData = new FormData()
-    formData.append('recipe-image', file)
-    const editConfig = {...config}
-    editConfig.data = formData
-
-    try {
-      await api.call(endpoint.editRecipeImage, editConfig) 
-      setVariant('success')
-      navigate('/profile')
-    } catch (err) {
-      setErrorMessage(err.message)
-    }
-
   }
 
   return (
@@ -69,12 +56,7 @@ const EditRecipe = () => {
         <SharedAlert variant={variant}>{errorMessage}</SharedAlert>
       </Container>
       {recipe && (
-        <EditRecipeForm
-          recipe={recipe}
-          submit={editHandler}
-          setMessage={setErrorMessage}
-          changeImage={changeImage}
-        />
+        <EditRecipeForm recipe={recipe} submit={editHandler} setMessage={setErrorMessage} />
       )}
     </>
   )

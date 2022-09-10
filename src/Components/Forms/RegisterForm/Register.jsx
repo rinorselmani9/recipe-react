@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styles from './Register.module.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Col, Container, Form, Row } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 const Register = ({ submit, setMessage }) => {
   const navigate = useNavigate()
+  let fileRef = useRef(null)
 
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   const passwordRegex =
@@ -51,80 +52,81 @@ const Register = ({ submit, setMessage }) => {
       return
     }
 
-    const data = {
+    const profile = {
       firstName,
       lastName,
       email,
       age,
       password,
-      image
+      image,
     }
-    submit(data)
+    submit(profile)
   }
 
   return (
-          <Form onSubmit={submitHandler} className={styles.form}>
-            <Form.Group>
-              <input
-                type='text'
-                placeholder='Enter your first name...'
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                type='text'
-                placeholder='Enter your last name...'
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                type='email'
-                placeholder='Enter your email...'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                type='number'
-                placeholder='Enter your age...'
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                type='password'
-                placeholder='Enter your password...'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                type='password'
-                placeholder='Enter confirm password...'
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <input
-                type='text'
-                placeholder='Profile Pictue'
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </Form.Group>
-            <button>Register</button>
-            <p>
-              Already have an account?<NavLink to='/login'>Login</NavLink>
-            </p>
-          </Form>
+    <Form onSubmit={submitHandler} className={styles.form}>
+      <Form.Group>
+        <input
+          type='text'
+          placeholder='Enter your first name...'
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <input
+          type='text'
+          placeholder='Enter your last name...'
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <input
+          type='email'
+          placeholder='Enter your email...'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <input
+          type='number'
+          placeholder='Enter your age...'
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <input
+          type='password'
+          placeholder='Enter your password...'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <input
+          type='password'
+          placeholder='Enter confirm password...'
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <input
+          ref={fileRef}
+          type='file'
+          placeholder='Image'
+          onChange={(e) => setImage(fileRef.current.files[0])}
+          name='profile-image'
+        />
+      </Form.Group>
+      <button>Register</button>
+      <p>
+        Already have an account?<NavLink to='/login'>Login</NavLink>
+      </p>
+    </Form>
   )
 }
 

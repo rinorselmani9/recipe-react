@@ -5,16 +5,33 @@ import SharedAlert from '../../Components/shared/Alert'
 import api from '../../lib/api'
 import endpoint from '../../lib/endpoint'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const AddRecipe = () => {
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState()
   const [variant,setVariant] = useState('danger')
+  const token = useSelector((state) => state.auth.data.token)
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (recipe) => {
+
+    // console.log(data.title);
+    const formData = new FormData()
+    formData.append('title',recipe.title)
+    formData.append('category',recipe.category)
+    formData.append('ingridients',recipe.ingridients)
+    formData.append('instructions',recipe.instructions)
+    formData.append('creator',recipe.creator)
+    formData.append('recipe-image',recipe.image)
+    
     const config = {
-      data,
+      headers:{
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'multipart/form-data'
+      },
+      data:formData
     }
+    console.log(config.data);
     const result = await api.call(endpoint.addRecipe, config)
     if (!result.success) {
       setErrorMessage(result.data)

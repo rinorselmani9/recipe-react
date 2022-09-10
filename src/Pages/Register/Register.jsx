@@ -11,14 +11,29 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState()
   const [variant,setVariant] = useState('danger')
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (profile) => {
+    // const config = {
+    //   data,
+    // }
+    let formData = new FormData()
+    formData.append('firstName', profile.firstName)
+    formData.append('lastName', profile.lastName)
+    formData.append('email', profile.email)
+    formData.append('age', profile.age)
+    formData.append('password', profile.password)
+    formData.append('profile-image', profile.image)
+    
     const config = {
-      data,
+      headers:{
+        'Content-type': 'multipart/form-data'
+      },
+      data:formData
     }
+    console.log(profile);
 
     const result = await api.call(endpoint.register, config)
     if (!result.success) {
-      setErrorMessage([result.data])
+      setErrorMessage(result.data)
     }
     setVariant('success')
   }
@@ -27,7 +42,7 @@ const Register = () => {
     <>
       <Container>
         <h1>Register</h1>
-        <SharedAlert variant={variant}>{errorMessage}</SharedAlert>
+        {/* <SharedAlert variant={variant}>{errorMessage}</SharedAlert> */}
       </Container>
       {variant !== 'success' ? (<RegisterForm setMessage={setErrorMessage} submit={handleSubmit} />
       ):(

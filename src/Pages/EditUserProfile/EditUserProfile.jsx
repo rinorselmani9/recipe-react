@@ -4,7 +4,7 @@ import EditUser from '../../Components/Forms/EditUserForm'
 import { useSelector } from 'react-redux'
 import api from '../../lib/api'
 import endpoint from '../../lib/endpoint'
-import { Container, Form } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import SharedAlert from '../../Components/shared/Alert'
 import ProfilePicture from '../../Components/Forms/ProfilePictureForm'
 
@@ -19,7 +19,8 @@ const EditUserProfile = () => {
 
   const config = {
     headers:{
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'multipart/form-data'
     },
     params: [userId],
   }
@@ -51,7 +52,6 @@ const EditUserProfile = () => {
     const data = new FormData()
     data.append('profile-image',file)
     const dataConfig = {...config, data}
-
 
     try {
       await api.call(endpoint.changeProfilePicture, dataConfig)

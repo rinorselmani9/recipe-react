@@ -43,7 +43,7 @@ const UserProfile = (props) => {
 
   return (
     <div className={styles.container}>
-          <img src={props.image}></img>
+          <img src={process.env.REACT_APP_API_URL+props.image}></img>
           <hr></hr>
           <h5>{props.firstName} {props.lastName}</h5>
           <hr></hr>

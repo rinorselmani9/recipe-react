@@ -61,7 +61,7 @@ const Home = () => {
             <div key={recipe._id}>
               <Link to={`/recipe/single/${recipe._id}`}>
                 <p>{recipe.title}</p>
-                <img src={recipe.image} alt='recipe'></img>
+                <img src={process.env.REACT_APP_API_URL+recipe.image} alt='recipe'></img>
               </Link>
             </div>
           )
