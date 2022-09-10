@@ -9,6 +9,11 @@ import Profile from '../../Pages/Profile'
 import AddRecipe from '../../Pages/AddRecipe'
 import SingleRecipe from '../../Pages/SingleRecipe'
 import EditRecipe from '../../Pages/RecipeControll'
+import RecipesDashboard from '../../Pages/RecipesDashboard'
+import UsersDashboard from '../../Pages/UsersDashboard'
+import EditUserProfile from '../../Pages/EditUserProfile'
+import ErrorPage from '../../Pages/ErrorPage'
+import About from '../../Pages/About'
 
 
 export const routeData = {
@@ -39,6 +44,14 @@ export const routeData = {
       path: 'dashboard',
       element: <Dashboard />,
     },
+    {
+      path:'/recipes-dashboard',
+      element:<RecipesDashboard/>
+    },
+    {
+      path:'/users-dashboard',
+      element:<UsersDashboard/>
+    }
   ],
   user: [
     {
@@ -46,11 +59,15 @@ export const routeData = {
       element: <Profile />,
     },
     {
+      path:'/editprofile/:id',
+      element:<EditUserProfile/>
+    },
+    {
       path: 'add-recipe',
       element: <AddRecipe />,
     },
     {
-      path:'/recipe/:id',
+      path:'/recipe/single/:id',
       element:<SingleRecipe/>
     },
     {
@@ -63,5 +80,13 @@ export const routeData = {
       path: '/',
       element: <Home />,
     },
+    {
+      path:'/about',
+      element:<About/>
+    },
+    {
+      path:'*',
+      element:<ErrorPage/>
+    }
   ],
 }

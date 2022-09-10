@@ -25,8 +25,8 @@ const MiniCard = () => {
   return (
     <>
       <div className={styles.mini}>
-        <Form.Select onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
-          <option value='none' selected disabled hidden>
+        <Form.Select onChange={(e) => setSelectedOption(e.target.value)} defaultValue={firstName} value={selectedOption}>
+          <option value={firstName}  disabled hidden>
             {firstName}
           </option>
           <option value={'profile'}>Profile</option>

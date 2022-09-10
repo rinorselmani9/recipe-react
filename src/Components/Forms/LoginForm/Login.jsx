@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import styles from './Login.module.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Col, Container, Row, Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 const Login = ({ submit, setMessage }) => {
   const navigate = useNavigate()

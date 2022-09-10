@@ -19,7 +19,7 @@ const UserRecipes = (props) => {
         {props.recipesList.map((recipe) => {
           return (
             <div key={recipe._id}>
-              <Link to={`/recipe/${recipe._id}`}>
+              <Link to={`/recipe/single/${recipe._id}`}>
               <p>{recipe.title}</p>
               <img src={recipe.image}></img>
               </Link>

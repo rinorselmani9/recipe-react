@@ -3,14 +3,21 @@ import { Container, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import styles from './AddRecipe.module.scss'
 
-const AddRecipe = ({submit,setMessage}) => {
+const AddRecipe = ({ submit, setMessage }) => {
   const [title, setTitle] = useState()
   const [category, setCategory] = useState()
-  const [ingridients, setIngridients] = useState()
+  const [ingridients, setIngridients] = useState([''])
   const [instructions, setInstructions] = useState()
-  const [image,setImage] = useState('')
+  const [image, setImage] = useState('')
 
   const auth = useSelector((state) => state.auth.data)
+
+  const addIngridientInput = (e) => {
+    e.preventDefault()
+    let ingridientInput = ''
+    setIngridients([...ingridients, ingridientInput])
+    console.log(ingridients);
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -27,17 +34,17 @@ const AddRecipe = ({submit,setMessage}) => {
     if (!instructions) {
       return setMessage('Please enter instructions for your recipe!')
     }
-    if(!image){
+    if (!image) {
       return setMessage('Please enter an image for your recipe!')
     }
-
+    console.log(ingridients);
     const data = {
       title,
       category,
       ingridients,
       instructions,
       image,
-      creator:auth.id
+      creator: auth.id,
     }
     submit(data)
   }
@@ -59,13 +66,25 @@ const AddRecipe = ({submit,setMessage}) => {
             onChange={(e) => setCategory(e.target.value)}
           ></input>
         </Form.Group>
-        <Form.Group>
-          <textarea
-            type='text'
-            placeholder='Recipe ingridients'
-            onChange={(e) => setIngridients(e.target.value)}
-          ></textarea>
-        </Form.Group>
+
+        {ingridients.map((input, index) => {
+          return (
+          <Form.Group>
+            <input
+              type='text'
+              placeholder={`Recipe ingridients ${index+1} `}
+              onChange={( event ) => {
+                let multipleInputs = [...ingridients]
+                multipleInputs[index] = event.target.value
+                setIngridients(multipleInputs)
+                console.log(ingridients);
+              }}
+            ></input>
+          </Form.Group>
+          )
+        })}
+        <button onClick={addIngridientInput}>Add Ingridient</button>
+
         <Form.Group>
           <textarea
             placeholder='Recipe instructions'
@@ -73,11 +92,7 @@ const AddRecipe = ({submit,setMessage}) => {
           ></textarea>
         </Form.Group>
         <Form.Group>
-        <input
-            type='text'
-            placeholder='Image'
-            onChange={(e) => setImage(e.target.value)}
-          ></input>
+          <input type='text' placeholder='Image' onChange={(e) => setImage(e.target.value)}></input>
         </Form.Group>
         <button>Add recipe!</button>
       </Form>

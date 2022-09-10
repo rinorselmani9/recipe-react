@@ -4,6 +4,8 @@ import UserProfile from '../../Components/Profile/UserProfile'
 import axios from 'axios'
 import styles from './Profile.module.scss'
 import UserRecipes from '../../Components/UserRecipes/UserRecipes'
+import api from '../../lib/api'
+import endpoint from '../../lib/endpoint'
 
 const Profile = () => {
   const auth = useSelector((state) => state.auth.data)
@@ -11,21 +13,28 @@ const Profile = () => {
   const [user, setUser] = useState([])
   const [recipesList, setRecipesList] = useState([])
 
+  const config = {
+    headers:{
+      Authorization:`Bearer ${auth.token}`
+    },
+    params: [auth.id],
+  }
+
   useEffect(() => {
     const getUser = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_API_URL}/users/${auth.id}`)
-      setUser(result.data.data)
+      const result = await api.call(endpoint.getSingleUser, config)
+      setUser(result.data)
     }
     getUser()
   }, [])
 
   useEffect(() => {
     const getUserRecipe = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_API_URL}/recipe/${auth.id}`)
-      setRecipesList(result.data.data)
+      const result = await api.call(endpoint.getUserRecipe,config)
+      setRecipesList(result.data)
     }
     getUserRecipe()
-  }, [user])
+  }, [])
   return (
     <>
       <div className={styles.container}>

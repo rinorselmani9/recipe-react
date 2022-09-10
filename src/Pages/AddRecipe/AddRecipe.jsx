@@ -15,7 +15,6 @@ const AddRecipe = () => {
     const config = {
       data,
     }
-
     const result = await api.call(endpoint.addRecipe, config)
     if (!result.success) {
       setErrorMessage(result.data)

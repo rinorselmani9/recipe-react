@@ -7,18 +7,18 @@ const VerifyAccount = () => {
   const location = useLocation()
   useEffect(() => {
     const verifyAccount = async () => {
+      
       const params = new URLSearchParams(location.search)
       const token = params.get('token')
-
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:`Bearer ${token}`,
         },
       }
 
       const result = await api.call(endpoint.verifyAccount, config)
 
-      console.log(result.success)
+      console.log(result)
     }
     verifyAccount()
   }, [location.search])

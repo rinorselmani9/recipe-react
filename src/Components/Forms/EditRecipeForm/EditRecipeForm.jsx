@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
-import {  Form } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import React, { useState, useRef } from 'react'
+import { Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import styles from './EditRecipeForm.module.scss'
 
-const EditRecipeForm = ({ submit, setMessage, recipe }) => {
+const EditRecipeForm = ({ submit, setMessage, recipe, changeImage }) => {
+  const [image] = useState(recipe.image)
+  const fileRef = useRef(null)
 
-
-  const token = useSelector((state) => state.auth.data.token)
-  console.log(recipe);
   const [title, setTitle] = useState(recipe.title)
   const [category, setCategory] = useState(recipe.category)
-  const [ingridients, setIngridients] = useState()
+  const [ingridients, setIngridients] = useState(recipe.ingridients)
   const [instructions, setInstructions] = useState(recipe.instructions)
-  const [image, setImage] = useState('')
+
+  const addIngridientInput = (e) => {
+    e.preventDefault()
+    let ingridientInput = ''
+    setIngridients([...ingridients, ingridientInput])
+  }
+
+  const handleChangeImage = (e) => {
+    e.preventDefault()
+    changeImage(fileRef.current.files[0])
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -22,7 +30,7 @@ const EditRecipeForm = ({ submit, setMessage, recipe }) => {
       setMessage('Please enter a title for your recipe!')
     }
     if (!category) {
-     setMessage('Please enter a category for your recipe!')
+      setMessage('Please enter a category for your recipe!')
     }
     if (!ingridients) {
       setMessage('Please enter some ingridients for your recipe!')
@@ -30,23 +38,17 @@ const EditRecipeForm = ({ submit, setMessage, recipe }) => {
     if (!instructions) {
       setMessage('Please enter instructions for your recipe!')
     }
-    if (!image) {
-      setMessage('Please enter an image for your recipe!')
-    }
-
     const data = {
       title,
       category,
       ingridients,
       instructions,
-      image,
     }
     submit(data)
   }
 
   return (
-   
-    <Form onSubmit={submitHandler} className={styles.form}>
+    <Form onSubmit={submitHandler} className={styles.form} encType="multipart/form-data">
       <Form.Group>
         <input
           type='text'
@@ -63,13 +65,24 @@ const EditRecipeForm = ({ submit, setMessage, recipe }) => {
           onChange={(e) => setCategory(e.target.value)}
         ></input>
       </Form.Group>
-      <Form.Group>
-        <textarea
-          type='text'
-          placeholder='Recipe ingridients'
-          onChange={(e) => setIngridients(e.target.value)}
-        ></textarea>
-      </Form.Group>
+      {ingridients.map((input, index) => {
+        return (
+          <Form.Group>
+            <input
+              type='text'
+              value={ingridients}
+              placeholder={`Recipe ingridients ${index + 1} `}
+              onChange={(event) => {
+                let multipleInputs = [...ingridients]
+                multipleInputs[index] = event.target.value
+                setIngridients(multipleInputs)
+                console.log(ingridients)
+              }}
+            ></input>
+          </Form.Group>
+        )
+      })}
+      <button onClick={addIngridientInput}>Add Ingridient</button>
       <Form.Group>
         <textarea
           value={instructions}
@@ -77,12 +90,12 @@ const EditRecipeForm = ({ submit, setMessage, recipe }) => {
           onChange={(e) => setInstructions(e.target.value)}
         ></textarea>
       </Form.Group>
-      <Form.Group>
-        <input type='text' placeholder='Image' onChange={(e) => setImage(e.target.value)}></input>
-      </Form.Group>
+      <div>
+        {/* <img src={image.startsWith('http') ? image : process.env.REACT_APP_API_URL + image} /> */}
+        <input ref={fileRef} type='file' onChange={handleChangeImage} name='recipe-image' />
+      </div>
       <button>Edit!</button>
     </Form>
-    
   )
 }
 

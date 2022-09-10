@@ -1,12 +1,16 @@
 import axios from 'axios'
+import { store } from './store/configStore'
+const state = store.getState()
+
 
 const api = {
+  
   call: async (endpoint, config = {}) => {
     let url = process.env.REACT_APP_API_URL + endpoint.url
     const { data, headers } = config
-    
-    if(config.params && config.params.length){
-      config.params.forEach(elem => {
+
+    if (config.params && config.params.length) {
+      config.params.forEach((elem) => {
         url += `${elem}/`
       })
     }
@@ -15,7 +19,7 @@ const api = {
       url,
       method: endpoint.method,
       data,
-      headers,
+      headers
     }
     try {
       const result = await axios(request)

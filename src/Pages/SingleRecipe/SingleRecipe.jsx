@@ -9,7 +9,7 @@ import endpoint from '../../lib/endpoint'
 
 const SingleRecipe = () => {
 
-  const token = useSelector((state)=>state.auth.data.token) 
+  const token = useSelector((state) => state.auth.data.token)
   const navigate = useNavigate()
   const recipeId = useParams().id
   const [recipe, setRecipe] = useState([])
@@ -18,41 +18,53 @@ const SingleRecipe = () => {
   const [modal, setModal] = useState(false)
 
   const config = {
-    headers:{
-        Authorization:`Bearer ${token}`
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-    params:[recipeId]
+    params: [recipeId],
   }
 
   useEffect(() => {
     const getOneRecipe = async () => {
       try {
-        const result = await axios.get(`${process.env.REACT_APP_API_URL}/recipe/single/${recipeId}`)
+        const result = await api.call(endpoint.getOneRecipe, config)
         if (!result.success) {
           setErrorMessage(result.data)
         }
-        setRecipe([result.data.data])
+        setRecipe([result.data])
       } catch (err) {
         setErrorMessage(err.message)
       }
     }
     getOneRecipe()
     setVariant('success')
-  }, [recipeId])
+  }, [])
 
-  const deleteRecipe = async() => {
-   
+  const deleteRecipe = async () => {
     const result = await api.call(endpoint.deleteRecipe, config)
 
-    if(!result.success){
+    if (!result.success) {
       setErrorMessage(result.data)
     }
     navigate('/profile')
   }
+
   const deleteRecipeNegative = () => {
     navigate('/profile')
   }
-  
+
+  const ratingSystem = async (rate) => {
+    let editedConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        rating: rate,
+      },
+      params: [recipeId],
+    }
+    const result = await api.call(endpoint.giveRecipeRating, editedConfig)
+  }
 
   return (
     <div>
@@ -63,7 +75,7 @@ const SingleRecipe = () => {
           <button onClick={deleteRecipeNegative}>No</button>
         </div>
       ) : (
-        <DisplayRecipe recipe={recipe} modal={setModal} />
+        <DisplayRecipe recipe={recipe} modal={setModal} ratingSystem={ratingSystem} />
       )}
     </div>
   )

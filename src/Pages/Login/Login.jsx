@@ -12,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [errorMessage, setErrorMessage] = useState()
+  const [variant, setVariant] = useState('danger')
 
   const submitHandler = async (data) => {
     const config = {
@@ -23,6 +24,7 @@ const Login = () => {
       setErrorMessage([result.data])
       return
     }
+    setVariant('success')
     dispatch(login(result.data))
     navigate('/')
   }
@@ -31,7 +33,7 @@ const Login = () => {
     <>
       <Container>
         <h1>Login</h1>
-        <SharedAlert variant={'danger'}>{errorMessage}</SharedAlert>
+        <SharedAlert variant={variant}>{errorMessage}</SharedAlert>
       </Container>
       <LoginForm setMessage={setErrorMessage} submit={submitHandler} />
     </>

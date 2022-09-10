@@ -9,7 +9,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const EditRecipe = () => {
-
   let recipeId = useParams().id
   const [recipe, setRecipe] = useState()
 
@@ -22,20 +21,19 @@ const EditRecipe = () => {
   const navigate = useNavigate()
 
   const config = {
-    headers:{
-      Authorization:`Bearer ${token}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
     params: [recipeId],
   }
-  
-  useEffect(() => {
-    const getOneRecipe = async() => {
 
+  useEffect(() => {
+    const getOneRecipe = async () => {
       const result = await api.call(endpoint.getOneRecipe, config)
       setRecipe(result.data)
     }
     getOneRecipe()
-  },[recipeId])
+  }, [recipeId])
 
   const editHandler = async (data) => {
     const editConfig = { ...config }
@@ -46,8 +44,22 @@ const EditRecipe = () => {
       setErrorMessage(result.data)
     }
 
-    setVariant('success')
-    navigate('/profile')
+    
+  }
+  const changeImage = async (file) => {
+    const formData = new FormData()
+    formData.append('recipe-image', file)
+    const editConfig = {...config}
+    editConfig.data = formData
+
+    try {
+      await api.call(endpoint.editRecipeImage, editConfig) 
+      setVariant('success')
+      navigate('/profile')
+    } catch (err) {
+      setErrorMessage(err.message)
+    }
+
   }
 
   return (
@@ -56,8 +68,14 @@ const EditRecipe = () => {
         <h2>Edit Recipe</h2>
         <SharedAlert variant={variant}>{errorMessage}</SharedAlert>
       </Container>
-      {recipe && <EditRecipeForm recipe={recipe} submit={editHandler} setMessage={setErrorMessage} />}
-      
+      {recipe && (
+        <EditRecipeForm
+          recipe={recipe}
+          submit={editHandler}
+          setMessage={setErrorMessage}
+          changeImage={changeImage}
+        />
+      )}
     </>
   )
 }
