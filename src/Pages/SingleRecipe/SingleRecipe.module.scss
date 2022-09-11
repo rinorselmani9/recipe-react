@@ -1,0 +1,22 @@
+.modal{
+    display: flex;
+    border: 1px solid red;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 20px;
+    align-items: center;
+    padding: 20px;
+    div{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+    }
+    button{
+        width: 10%;
+        margin: 2px;
+    }
+}

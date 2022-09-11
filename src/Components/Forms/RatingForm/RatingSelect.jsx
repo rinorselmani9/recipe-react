@@ -36,7 +36,7 @@ const RatingSelect = ({handleRating}) => {
         <label htmlFor='num5'>5</label>
       </li>
       </ul>
-      <button className={styles.submit}>Rate</button>
+      <Button className={styles.submit}>Rate</Button>
     </Form>
   )
 }

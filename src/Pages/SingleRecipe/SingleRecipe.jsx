@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import styles from './SingleRecipe.module.scss'
 import { useSelector } from 'react-redux'
 import DisplayRecipe from '../../Components/DisplayRecipe/DisplayRecipe'
 import api from '../../lib/api'
 import endpoint from '../../lib/endpoint'
+import { Button } from 'react-bootstrap'
 
 const SingleRecipe = () => {
 
@@ -14,7 +14,6 @@ const SingleRecipe = () => {
   const recipeId = useParams().id
   const [recipe, setRecipe] = useState([])
   const [errorMessage, setErrorMessage] = useState()
-  const [variant, setVariant] = useState('danger')
   const [modal, setModal] = useState(false)
 
   const config = {
@@ -37,7 +36,6 @@ const SingleRecipe = () => {
       }
     }
     getOneRecipe()
-    setVariant('success')
   }, [])
 
   const deleteRecipe = async () => {
@@ -69,10 +67,12 @@ const SingleRecipe = () => {
   return (
     <div>
       {modal && modal ? (
-        <div>
+        <div className={styles.modal}>
           <h4>Are you sure you want to delete this recipe?</h4>
-          <button onClick={deleteRecipe}>Yes</button>
-          <button onClick={deleteRecipeNegative}>No</button>
+          <div>
+            <Button variant='danger' onClick={deleteRecipe}>Yes</Button>
+            <Button onClick={deleteRecipeNegative}>No</Button>
+          </div>
         </div>
       ) : (
         <DisplayRecipe recipe={recipe} modal={setModal} ratingSystem={ratingSystem} />

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import endpoint from '../../lib/endpoint'
 import api from '../../lib/api'
+import {Container} from 'react-bootstrap'
 
 const VerifyAccount = () => {
   const location = useLocation()
@@ -23,10 +24,10 @@ const VerifyAccount = () => {
     verifyAccount()
   }, [location.search])
 
-  return <div>
-    <h2>Your account has been succesfully verified.Please navigate to login!</h2>
-    <Link to='/login'>Go to Login page!</Link>
-  </div>
+  return <Container>
+    <h4>Your account has been succesfully verified.<br></br>Please navigate to login!</h4>
+    <Link to='/login'>Log in now!</Link>
+  </Container>
 }
 
 export default VerifyAccount

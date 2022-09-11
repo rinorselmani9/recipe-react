@@ -14,12 +14,12 @@ const MiniCard = () => {
 
   if (selectedOption === 'logout') {
     dispatch(logout())
-    setSelectedOption({firstName})
+    setSelectedOption(firstName)
     navigate('/')
   }
   if (selectedOption === 'profile') {
     navigate('/profile')
-    setSelectedOption({firstName})
+    setSelectedOption(firstName)
   }
 
   return (

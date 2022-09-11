@@ -46,6 +46,9 @@ const Register = ({ submit, setMessage }) => {
     if (confirmPassword !== password) {
       localErrors.push('Passwords do not match')
     }
+    if (!image) {
+      localErrors.push('Image can not be empty')
+    }
 
     if (localErrors.length) {
       setMessage(localErrors[0])

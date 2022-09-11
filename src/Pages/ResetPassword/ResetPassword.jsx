@@ -5,6 +5,7 @@ import SharedAlert from '../../Components/shared/Alert'
 import { useLocation, Link } from 'react-router-dom'
 import api from '../../lib/api'
 import endpoint from '../../lib/endpoint'
+
 const ResetPassword = () => {
   
   const location = useLocation()

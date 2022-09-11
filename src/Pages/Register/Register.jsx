@@ -5,6 +5,7 @@ import endpoint from '../../lib/endpoint'
 import { Container } from 'react-bootstrap'
 import SharedAlert from '../../Components/shared/Alert'
 import { useNavigate } from 'react-router-dom'
+import styles from './Register.module.scss'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -42,14 +43,14 @@ const Register = () => {
     <>
       <Container>
         <h1>Register</h1>
-        {/* <SharedAlert variant={variant}>{errorMessage}</SharedAlert> */}
+        <SharedAlert variant={variant}>{errorMessage}</SharedAlert>
       </Container>
       {variant !== 'success' ? (<RegisterForm setMessage={setErrorMessage} submit={handleSubmit} />
       ):(
-        <Container>
-          <h4>Registered successfully</h4>
+        <Container className={styles.registered}>
+          <h4>Registered successfully.</h4>
           <h4>An email has been sent to you to verify your account!</h4>
-          <h4>After verifying your account you'll be redirectet to login page</h4>
+          <h4>After verifying your account you'll be redirected to login page!</h4>
         </Container>
       )
     }

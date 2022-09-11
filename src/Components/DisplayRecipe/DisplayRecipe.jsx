@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import styles from './DisplayRecipe.module.scss'
 import RatingSelect from '../Forms/RatingForm/RatingSelect'
+import { Button } from 'react-bootstrap'
 
 const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
   const auth = useSelector((state) => state.auth.data)
@@ -38,27 +39,28 @@ const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
                 <img src={process.env.REACT_APP_API_URL + elem.image}></img>
                 {auth.id && auth.id === elem.creator ? (
                   <div key={elem._id}>
-                    <button
+                    <Button
                       onClick={() => {
                         handleEdit(elem._id)
                       }}
                     >
                       Edit Recipe
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       onClick={() => {
                         handleDelete(elem._id)
                       }}
+                      variant='danger'
                     >
                       Delete Recipe
-                    </button>
+                    </Button>
                   </div>
                 ) : null}
               </div>
               <div className={styles.info}>
-                <div>
-                  <button onClick={showIngridient}>Ingridients</button>
-                  <button onClick={showInstructions}>Instructions</button>
+                <div className='btn-group-toggle'>
+                  <Button variant='light' onClick={showIngridient}>Ingridients</Button>
+                  <Button variant='light' onClick={showInstructions}>Instructions</Button>
                 </div>
                 {info === false ? (
                   <ul>
@@ -71,10 +73,10 @@ const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
                 )}
                 {elem.rating.length
                   ? (avgRating = (
-                      <h4>
+                      <h6>
                         Rating:
                         {elem.rating.reduce((prev, curr) => prev + curr, 0) / elem.rating.length}/5
-                      </h4>
+                      </h6>
                     ))
                   : null}
 

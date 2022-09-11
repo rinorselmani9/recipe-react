@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './UserRecipes.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 
 
 const UserRecipes = (props) => {
@@ -13,7 +14,7 @@ const UserRecipes = (props) => {
     <>
       <div  className={styles.heading}>
       <h1>Recipes</h1>
-      <button onClick={handleClick}>Add recipe</button>
+      <Button variant='dark' onClick={handleClick}>Add recipe</Button>
       </div>
       <div className={styles.container}>
         {props.recipesList.map((recipe) => {
