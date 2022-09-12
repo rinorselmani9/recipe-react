@@ -2,8 +2,6 @@ import React from 'react'
 import {Table} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import api from '../../../lib/api'
-import endpoint from '../../../lib/endpoint'
 
 const RecipesAdminDashboard = ({ recipes, submitDelete}) => {
 
@@ -16,7 +14,7 @@ const RecipesAdminDashboard = ({ recipes, submitDelete}) => {
   }
 
   return (
-    <Table striped bordered hover>
+    <Table  striped bordered hover>
       <thead>
         <tr>
           <th>Nr.</th>

@@ -62,6 +62,7 @@ const SingleRecipe = () => {
       params: [recipeId],
     }
     const result = await api.call(endpoint.giveRecipeRating, editedConfig)
+    // console.log(rate);
   }
 
   return (

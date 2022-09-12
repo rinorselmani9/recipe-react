@@ -13,7 +13,9 @@ const EditRecipeForm = ({ submit, setMessage, recipe}) => {
   const [instructions, setInstructions] = useState(recipe.instructions)
   const [image,setImage] = useState(recipe.image)
 
+
   const addIngridientInput = (e) => {
+    
     e.preventDefault()
     let ingridientInput = ''
     setIngridients([...ingridients, ingridientInput])
@@ -67,13 +69,12 @@ const EditRecipeForm = ({ submit, setMessage, recipe}) => {
           <Form.Group>
             <input
               type='text'
-              value={ingridients}
+              value={ingridients[index]}
               placeholder={`Recipe ingridients ${index + 1} `}
               onChange={(event) => {
                 let multipleInputs = [...ingridients]
                 multipleInputs[index] = event.target.value
                 setIngridients(multipleInputs)
-                console.log(ingridients)
               }}
             ></input>
           </Form.Group>

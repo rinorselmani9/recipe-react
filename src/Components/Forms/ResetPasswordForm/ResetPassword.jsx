@@ -10,7 +10,7 @@ const ResetPassword = ({ submit, setMessage }) => {
     e.preventDefault()
 
     if (!password) {
-      setMessage('Please enter an passoword!')
+      setMessage('Please enter a passoword!')
       return
     }
     if (confirmPassword !== password) {

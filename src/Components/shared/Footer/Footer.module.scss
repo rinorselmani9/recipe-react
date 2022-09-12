@@ -10,12 +10,13 @@
   // padding: 1rem;
   // background-color: white;
   // text-align: center;
-  display: none;
-  position: fixed;
+  // margin-top: auto;
+  position: relative;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid black;
+  border-top: 1px solid #ffd977;
   height: 80px;
+  background-color: white;
   h4 {
     width: 50%;
     margin: auto;

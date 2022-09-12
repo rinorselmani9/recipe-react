@@ -14,7 +14,7 @@ const UserRecipes = (props) => {
     <>
       <div  className={styles.heading}>
       <h1>Recipes</h1>
-      <Button variant='dark' onClick={handleClick}>Add recipe</Button>
+      <button  onClick={handleClick}>Add recipe</button>
       </div>
       <div className={styles.container}>
         {props.recipesList.map((recipe) => {

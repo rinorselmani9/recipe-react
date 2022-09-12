@@ -34,15 +34,22 @@ const EditUserProfile = () => {
   }, [userId])
 
 
-  const handleSubmit = async(data) => {
-    const editConfig = {...config}
-    editConfig.data = data
-
-    const result = await api.call(endpoint.editUser,editConfig)
-
+  const handleSubmit = async(user) => {
+    const config = {
+      headers:{
+        Authorization: `Bearer ${token}`,
+      },
+      data:user,
+      params: [userId],
+      
+    }
+    
+    console.log(config);
+    const result = await api.call(endpoint.editUser,config)
+    console.log(result);
     if (!result.success) {
         setErrorMessage(result.data)
-      }
+    }
   
     setVariant('success')
     navigate('/profile')

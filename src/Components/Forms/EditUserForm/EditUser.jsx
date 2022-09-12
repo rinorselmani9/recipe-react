@@ -42,24 +42,24 @@ const EditUser = ({ user, submit, setMessage, changeImage }) => {
       <Form.Group>
         <input
           type='text'
-          placeholder='Enter your first name...'
           value={firstName}
+          placeholder='Enter your first name...'
           onChange={(e) => setFirstName(e.target.value)}
         />
       </Form.Group>
       <Form.Group>
         <input
           type='text'
-          placeholder='Enter your last name...'
           value={lastName}
+          placeholder='Enter your last name...'
           onChange={(e) => setLastName(e.target.value)}
         />
       </Form.Group>
       <Form.Group>
         <input
           type='number'
-          placeholder='Enter your age...'
           value={age}
+          placeholder='Enter your age...'
           onChange={(e) => setAge(e.target.value)}
         />
       </Form.Group>

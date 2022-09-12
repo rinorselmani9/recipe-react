@@ -47,6 +47,10 @@ const EditRecipe = () => {
     if (!result.success) {
       setErrorMessage(result.data)
     }
+    setVariant('success')
+    setTimeout(() => {
+      navigate('/profile')
+    },2000)
   }
 
   return (
@@ -55,8 +59,10 @@ const EditRecipe = () => {
         <h2>Edit Recipe</h2>
         <SharedAlert variant={variant}>{errorMessage}</SharedAlert>
       </Container>
-      {recipe && (
+      {recipe && variant !== 'success' ? (
         <EditRecipeForm recipe={recipe} submit={editHandler} setMessage={setErrorMessage} />
+      ):(
+        <h4>Edited succesfully</h4>
       )}
     </>
   )

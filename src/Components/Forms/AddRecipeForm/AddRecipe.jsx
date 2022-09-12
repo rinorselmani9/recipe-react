@@ -6,7 +6,7 @@ import styles from './AddRecipe.module.scss'
 const AddRecipe = ({ submit, setMessage }) => {
   const [title, setTitle] = useState()
   const [category, setCategory] = useState()
-  const [ingridients, setIngridients] = useState([''])
+  const [ingridients, setIngridients] = useState([])
   const [instructions, setInstructions] = useState()
   const [image, setImage] = useState('')
   const fileRef = useRef(null)
@@ -46,6 +46,7 @@ const AddRecipe = ({ submit, setMessage }) => {
       creator: auth.id,
     }
     submit(recipe)
+    // console.log(recipe.ingridients);
   }
 
   return (

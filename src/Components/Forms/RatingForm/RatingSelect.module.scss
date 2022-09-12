@@ -12,9 +12,10 @@
     text-align: center;
     border-radius: 50%;
     font-size: 19px;
-    border: 1px #eee solid;
+    border: 1px #ffd977 solid;
     transition: 0.3s;
     list-style: none;
+    margin: 4px;
   }
   li label {
     position: absolute;
@@ -29,19 +30,19 @@
     
   }
   li:hover{
-    background: #e9b08e;
+    background: #ffd977;
     color: #fff;
   }
   input {
     flex-grow: 2;
-    border: none;
+    border: 1px solid #ffd977;
     font-size: 16px;
   }
   [type='radio'] {
     opacity: 0;
   }
   [type='radio']:checked ~ label {
-    background: #e9b08e;
+    background: #ffd977;
     color: #fff;
   }
   input:focus {
@@ -51,4 +52,8 @@
 .submit{
     margin-left: 25px;
     width: 50%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ffd977;
+    background-color: white;
 }

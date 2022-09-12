@@ -42,7 +42,9 @@ const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
                     <Button
                       onClick={() => {
                         handleEdit(elem._id)
+                        
                       }}
+                      variant='outline-primary'
                     >
                       Edit Recipe
                     </Button>
@@ -50,7 +52,7 @@ const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
                       onClick={() => {
                         handleDelete(elem._id)
                       }}
-                      variant='danger'
+                      variant='outline-danger'
                     >
                       Delete Recipe
                     </Button>
@@ -59,8 +61,8 @@ const DisplayRecipe = ({ recipe, modal, ratingSystem }) => {
               </div>
               <div className={styles.info}>
                 <div className='btn-group-toggle'>
-                  <Button variant='light' onClick={showIngridient}>Ingridients</Button>
-                  <Button variant='light' onClick={showInstructions}>Instructions</Button>
+                  <Button variant='outline-secondary' onClick={showIngridient}>Ingridients</Button>
+                  <Button variant='outline-secondary' onClick={showInstructions}>Instructions</Button>
                 </div>
                 {info === false ? (
                   <ul>
